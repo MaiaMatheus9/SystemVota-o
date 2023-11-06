@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../Style/Votacao.css">
+    <title>Sistema de Votação</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="nav-link">
+                <a href="Results.html">
+                    <h1>Home</h1>
+                    <h4>Candidatos disponíveis</h4>
+                </a>
+            </div>
+            <div class="nav-link">
+                <a href="Votacao.html">
+                    <h1>Votação</h1>
+                    <h4>Vote no seu candidato</h4>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="Vot">
+        <div class="card">
+          <h1 class="Tit">Votação</h1>
+  
+          <div id="msgError"></div>
+          <div id="msgSuccess"></div>
+          <form action="http://localhost:5000/php/VotacaoGrava.php" method="get">
+            <div class="label-float">
+              <input type="number" id="IdCandidato" name="IdCandidato" placeholder="Digite o Id do Candidato a ser votado" required />
+            </div>
+  
+            <div class="label-float">
+              <input type="email" id="Email" name="Email" placeholder="Digite o seu email" required />
+            </div>
+  
+            <div class="justify-center">
+              <button onclick="cadastrar()">Cadastrar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <script src="../Scripts/Votacao.js"></script>
+</body>
+</html>

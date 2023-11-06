@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="Style/Index.css">
+    <title>Login: Sistema Votação</title>
+</head>
+<body>
+    <script src="https://kit.fontawesome.com/585b906a1e.js" crossorigin="anonymous"></script>
+    <div class="container">
+        <div class="card">
+            <h1>Login</h1>
+
+            <div id="msgError"></div>
+            <div id="msgSucess"></div>
+
+            <div class="linha">
+                <input type="text" id="usuario" name="usuario" placeholder="Digite o seu Usuário" required>
+                <label id="linhaUsuario" for="usuario">Usuário/nome</label>
+            </div>
+
+            <div class="linha">
+                <input type="password" id="senha" name="senha" placeholder="Digite a sua senha" required>
+                <label id="linhaSenha" for="senha">Senha</label>
+                <i class="fa-solid fa-eye"></i>
+            </div>
+            <div class="centro">
+                <button onclick="logar()">Logar</button>
+            </div>
+
+            <div>
+                <hr>
+                <p>
+                    Não tem uma conta? <a href="Pages/Signin.html">Cadastre-se</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="Scripts/Index.js"></script>
+</body>
+</html>

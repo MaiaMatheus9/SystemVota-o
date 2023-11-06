@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color:  rgb(48, 47, 47);
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 14%;
+}
+
+.card{
+  background-color: #ffffff80;
+  padding: 30px;
+  border-radius: 2%;
+  box-shadow: 3px 3px 1px 0px #03030395;
+  width: 400px;
+}
+
+h1{
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0d009c
+}
+
+.linha input{
+  width: 100%;
+  padding: 5px 5px;
+  display: inline-block;
+  border: 0;
+  border-bottom: 2px solid #0d009c;
+  background-color: transparent;
+  outline: none;
+  min-width: 180px;
+  font-size: 16px;
+  border-radius: 0;
+}
+
+.linha{
+  position: relative;
+  padding-top: 13px;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.linha input:focus{
+  border-bottom: 2px solid #4038a0;
+}
+
+.linha label{
+  color: transparent;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 13px;
+  margin-top: 0;
+  color: #4038a0
+}
+
+.centro{
+  display: flex;
+  justify-content: center;
+}
+
+button{
+  background-color: transparent;
+  color: #0d009c;
+  border-color: #0d009c;
+  padding: 10px 20px;
+  border-radius: 2%;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 3%;
+  margin-bottom: 5%;
+  font-weight: bold;
+} 
+
+button:hover{
+  background-color: #0d009c;
+  color: #ffffff;
+  transition: all .4s ease-in-out;
+}
+
+hr{
+  margin-bottom: 7%;
+  width: 100%;
+}
+
+p{
+  text-align: center;
+  color: #0d009c;
+  font-size: 14pt;
+}
+
+a{
+  text-decoration: none;
+  color: #110e2e;
+  font-weight: bold;
+}
+
+a:hover{
+  color: #464366;
+  transition: all .3s ease-in-out;
+}
+
+.fa-eye{
+  position: absolute;
+  top: 13px;
+  right: 10px;
+  cursor: pointer;
+  color: #0d009c;
+}
+
+#msgError{
+  color: #ff0000;
+  background-color: #ffbbbb;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  display: none;
+}
+
+#msgSucess{
+  color: #00bb00;
+  background-color: #ffbbfe;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  display: none;
+}
