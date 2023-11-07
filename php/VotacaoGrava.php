@@ -10,7 +10,7 @@ $Email = $_GET['Email'];
 
 $hostname = "localhost"; 
 $user = "root";
-$password = "ifsp";
+$password = "MatheusR9";
 $database = "Eleicao";
 
 $conn = mysqli_connect($hostname, $user, $password, $database);
@@ -32,7 +32,7 @@ if($res){
 
 // Close the connection
 mysqli_close($conn);
-header('Location: ../index.html');
+header('Location: Pages/Results.html');
 exit();
 
 

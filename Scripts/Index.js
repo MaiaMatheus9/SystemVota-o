@@ -89,6 +89,20 @@ let msgSucess = document.querySelector('#msgSucess');
       console.log(error);
     });*/
 
+    fetch('../php/IndexConsulta.php')
+    .then((response) => {
+      if(response.status >= 200 && response.status < 300) {
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    })
+    .then((estudantes) => {
+      console.log(estudantes);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    
     function logar(estudantes) {
         if (usuario.value == '') {
             linhaUsuario.setAttribute('style', 'color: red;')
@@ -114,17 +128,23 @@ let msgSucess = document.querySelector('#msgSucess');
             CheckSenha = true;
         }
     
-        if (CheckUsuario && CheckSenha) {
+console.log(CheckSenha, CheckUsuario);
+
+        if (CheckUsuario == true && CheckSenha == true) {
             if (Array.isArray(estudantes) && estudantes.some(estudante => estudante.nome_estudante == usuario.value || estudante.email == usuario.value)) {
                 const usuarioValido = estudantes.some(estudante => estudante.nome_estudante == usuario.value || estudante.email == email.value);
                 const senhaValida = estudantes.some(estudante => estudante.senha == senha.value);
-        
+                
+                console.log('Ta passando por aqui 1');
+
                 if (usuarioValido && senhaValida) {
                     msgError.innerHTML = '';
                     msgError.style.display = 'none';
                     msgSucess.innerHTML = '<strong>Entrando...</strong';
                     msgSucess.style.display = 'block';
-        
+                    
+                    console.log('Ta passando por aqui 2');
+
                     setTimeout(() => {
                         window.location.href = '../Pages/Votacao.html';
                     }, 3000);
@@ -133,27 +153,16 @@ let msgSucess = document.querySelector('#msgSucess');
                     msgSucess.style.display = 'none';
                     msgError.style.display = 'block';
                     msgError.innerHTML = '<strong>Usuário/nome/email ou senha inválido</strong';
+
+                    console.log('Ta passando por aqui 3');
                 }
             } else {
                 msgSucess.innerHTML = '';
                 msgSucess.style.display = 'none';
                 msgError.style.display = 'block';
                 msgError.innerHTML = '<strong>Por favor, preencha todos os campos obrigatórios</strong';
+
+                console.log('Só ta passando por aqui');
             }
         }
     }
-    
-    (async () => {
-        try {
-            const response = await fetch('../php/IndexConsulta.php');
-            console.log(response);
-            if (response.status >= 200 && response.status < 300) {
-                const estudantes = await response.json();
-                logar(estudantes);
-            } else {
-                throw new Error(response.statusText);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    })();

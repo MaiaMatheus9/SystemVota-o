@@ -118,10 +118,6 @@ function cadastrar(){
         msgSucess.innerHTML = '<strong>Cadastrado usuário...</strong';
         msgSucess.setAttribute('style', 'display: block;');
 
-        setTimeout(() => {
-           window.location.href = '../Pages/Votacao.html';
-        }, 3000);
-
         fetch('../php/SigninGrava.php', {
             method: 'POST',
             headers: {
@@ -136,6 +132,12 @@ function cadastrar(){
         .catch(error => {
             console.error('Erro ao enviar dados:', error);
         });
+        
+        setTimeout(() => {
+           window.location.href = '../Pages/Votacao.html';
+        }, 3000);
+
+        
         
     }else{
         msgSucess.innerHTML = '';
