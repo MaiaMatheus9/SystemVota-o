@@ -70,13 +70,15 @@ function getDados() {
         votar(EMAIL, IDCANDIDATO);
     })
     .catch((error) => {
-    console.log(error);
+        console.log(error);
     });
 } 
 
+console.log(Data.IdCandidato, Data.email + 'Esses são os valores que estão no Data');
+
 function votar(EMAIL, IDCANDIDATO) {
-    const email = e.target.value;
-    const IdCandidato = e.target.value;
+    const email = Data.email;
+    const IdCandidato = Data.IdCandidato;
     let checkE = false;
     let checkI = false;
 
@@ -84,6 +86,9 @@ function votar(EMAIL, IDCANDIDATO) {
         email: email,
         IdCandidato: IdCandidato,
     };
+
+    console.log(Data.IdCandidato, Data.email + 'Esses são os valores que estão no Data');
+    console.log(EMAIL, IDCANDIDATO + 'Esses são os valores que estão no banco');
 
     if(email == EMAIL){
         console.log('Email correto');

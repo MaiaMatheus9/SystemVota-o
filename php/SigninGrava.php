@@ -8,6 +8,7 @@ $senha = $estudante['senha'];
 
 $servername = "localhost";
 $username = "root";
+//$password = "ifsp";
 $password = "MatheusR9";
 $dbname = "Eleicao";
 

@@ -139,3 +139,23 @@ body {
     flex-direction: column;
     justify-content: center;
   }
+
+  #msgError{
+    color: #ff0000;
+    background-color: #ffbbbb;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    display: none;
+  }
+  
+  #msgSucess{
+    color: #00bb00;
+    background-color: #ffbbfe;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    display: none;
+  }

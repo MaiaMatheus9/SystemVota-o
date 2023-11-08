@@ -10,6 +10,7 @@ $Email = $_GET['Email'];
 
 $hostname = "localhost"; 
 $user = "root";
+//$password = "ifsp";
 $password = "MatheusR9";
 $database = "Eleicao";
 

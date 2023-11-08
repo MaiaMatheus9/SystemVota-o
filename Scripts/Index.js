@@ -110,22 +110,22 @@ const checkData = {
     
 console.log(CheckSenha, CheckUsuario)*/
 
-    function getStudents() {
-        fetch('../php/IndexConsulta.php')
-        .then((response) => {
-        if(response.status >= 200 && response.status < 300) {
-            return response.json();
-        }
-        throw new Error(response.statusText);
-        })
-        .then((estudantes) => {
+function getStudents() {
+    fetch('../php/IndexConsulta.php')
+    .then((response) => {
+    if(response.status >= 200 && response.status < 300) {
+        return response.json();
+    }
+    throw new Error(response.statusText);
+    })
+    .then((estudantes) => {
         console.log(estudantes);
         logar(estudantes);
-        })
-        .catch((error) => {
+    })
+    .catch((error) => {
         console.log(error);
-        });
-    } 
+    });
+} 
 
 function logar(estudantes) {
     if (Array.isArray(estudantes) && estudantes.some(estudante => estudante.nome_estudante == usuario.value || estudante.email == usuario.value)) {
@@ -156,8 +156,7 @@ function logar(estudantes) {
     } else {
         msgSucess.innerHTML = '';
         msgSucess.style.display = 'none';
-        msgError.style.display = 'block';
-        msgError.innerHTML = '<strong>Por favor, preencha todos os campos obrigatórios</strong';
+        
 
         console.log('Só ta passando por aqui');
     }

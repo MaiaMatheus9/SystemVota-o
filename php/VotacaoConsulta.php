@@ -1,6 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
+//$password = "ifsp";
 $password = "MatheusR9";
 $dbname = "Eleicao";
 
@@ -26,5 +27,5 @@ $conn->close();
 
 // Envia os dados como JSON
 //header('Content-Type: application/json');
-echo json_encode($rows1);
+echo json_encode(array("num_candidato" => $resultadoNumCandidato, "email" => $resultadoEmail));
 ?>
