@@ -30,7 +30,6 @@
   
           <div id="msgError"></div>
           <div id="msgSuccess"></div>
-          <form action="http://localhost:5000/php/VotacaoGrava.php" method="get">
             <div class="label-float">
               <input type="number" id="IdCandidato" name="IdCandidato" placeholder="Digite o Id do Candidato a ser votado" required />
             </div>
@@ -40,9 +39,8 @@
             </div>
   
             <div class="justify-center">
-              <button onclick="cadastrar()">Cadastrar</button>
+              <button id="button" disabled onclick="getDados()">Votar</button>
             </div>
-          </form>
         </div>
       </div>
   

@@ -24,7 +24,5 @@ while ($row = $result->fetch_assoc()) {
 $conn->close();
 
 // Envia os dados como JSON
-//header('Content-Type: application/json');
 echo json_encode($rows);
-
 ?>
