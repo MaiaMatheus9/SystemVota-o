@@ -113,12 +113,7 @@ function cadastrar(){
             senha: senha.value
         };
 
-        msgError.innerHTML = '';
-        msgError.setAttribute('style', 'display: none;');
-        msgSucess.innerHTML = '<strong>Cadastrado usuário...</strong';
-        msgSucess.setAttribute('style', 'display: block;');
-
-        fetch('../php/SigninGrava.php', {
+        fetch('http://localhost:5400/php/SigninGrava.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -128,17 +123,39 @@ function cadastrar(){
         .then(response => response.json())
         .then(data => {
             console.log('Dados enviados com sucesso:', data);
+            if(data.response.status === "success"){
+                msgError.innerHTML = '';
+                msgError.setAttribute('style', 'display: none;');
+                msgSucess.innerHTML = '<strong>Cadastrado usuário...</strong';
+                msgSucess.setAttribute('style', 'display: block;');
+                setTimeout(() => {
+                    window.location.href = '../Pages/Votacao.html';
+                    msgError.innerHTML = '';
+                    msgError.style.display = 'none';
+                    msgSucess.innerHTML = '';
+                    msgSucess.style.display = 'none';
+                }, 3000);
+            }else if(data.response.status === "error_dois"){
+                msgSucess.innerHTML = '';
+                msgSucess.setAttribute('style', 'display: none;');
+                msgError.setAttribute('style', 'display: block;');
+                msgError.innerHTML = '<strong>Usuário já cadastrado, vá para a página de login</strong';
+            }else if(data.response.status === "error_email"){
+                msgSucess.innerHTML = '';
+                msgSucess.setAttribute('style', 'display: none;');
+                msgError.setAttribute('style', 'display: block;');
+                msgError.innerHTML = '<strong>Email já cadastrado, insira outro válido</strong';
+
+            }else if(data.response.status === "error_nome"){
+                msgSucess.innerHTML = '';
+                msgSucess.setAttribute('style', 'display: none;');
+                msgError.setAttribute('style', 'display: block;');
+                msgError.innerHTML = '<strong>Nome já cadastrado, insira nome completo</strong';
+            }
         })
         .catch(error => {
             console.error('Erro ao enviar dados:', error);
-        });
-        
-        setTimeout(() => {
-           window.location.href = '../Pages/Votacao.html';
-        }, 3000);
-
-        
-        
+        });      
     }else{
         msgSucess.innerHTML = '';
         msgSucess.setAttribute('style', 'display: none;');

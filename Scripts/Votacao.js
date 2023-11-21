@@ -1,12 +1,52 @@
 const checkData = {
     email: false,
     IdCandidato: false,
-  };
+};
   
-  const Data = {
+const Data = {
     email: '',
     IdCandidato: '',
-  };
+};
+
+fetch('http://localhost:5400/php/VerificaAutenticacao.php')
+    .then((response) => {
+        if (response.status >= 200 && response.status < 300) {
+            return response.json();
+        }
+        throw new Error(response.statusText);
+    })
+    .then((data) => {
+        if (data.status === "error") {
+            console.log('Não autenticado:', data.message);
+            alert("Você não está autenticado! Faça o login para votar");
+            window.location.href = '../Pages/Login.html';
+        } else {
+            // console.log('Autenticado');
+            // document.getElementById('Email').value = data.emailAutenticado;
+            // Data.email = data.emailAutenticado;
+            // checkData.email = true;
+            // console.log(Data.email, "Esse é o email que está no Data");
+
+            console.log('Autenticado');
+            
+            // Certifique-se de que data.emailAutenticado existe
+            if (data.emailAutenticado) {
+                document.getElementById('Email').value = data.emailAutenticado;
+                Data.email = data.emailAutenticado;
+                checkData.email = true;
+                console.log('Email no Data:', Data.email);
+
+                if(data.Response.status === "error"){
+                    console.log('Usuário já votou', data.message);
+                    alert("Você já votou! Acompanhe os resultados na página de candidatos");
+                    window.location.href = '../Pages/Results.html';
+                }
+            }
+        }
+    })
+    .catch((error) => {
+        console.log(error);
+});
 
 button = document.querySelector('#button');
 
@@ -16,104 +56,117 @@ let linhaIdCandidato = document.querySelector('#IdCandidato');
 msgError = document.querySelector('#msgError');
 msgSucess = document.querySelector('#msgSucess');
 
-  document.getElementById('IdCandidato').addEventListener('input', function (e) {
+document.getElementById('IdCandidato').addEventListener('input', function (e) {
     const IdCandidato = e.target.value;
-    if (IdCandidato.length >= 2) {
+
+    let IdCandidatoString = IdCandidato.toString();
+
+    if (IdCandidatoString.length !== 1) {
       console.log('Número de candidato deve ter 1 caracter');
       checkData.IdCandidato = false;
     } else {
       Data.IdCandidato = IdCandidato;
       checkData.IdCandidato = true;
     }
-    if (checkData.IdCandidato == true && checkData.senha == true) {
+
+    console.log("checkData.IdCandidato:", checkData.IdCandidato);
+    console.log("checkData.email:", checkData.email);
+    if (checkData.IdCandidato == true && checkData.email == true) {
       button.removeAttribute('disabled');
     } else {
         button.setAttribute('disabled', 'disabled');
+        console.log('Botão desabilitado');
     }
     console.log(Data);
-  });
-
-
-    document.getElementById('Email').addEventListener('input', function (e) {  
-        const email = e.target.value;
-        if (email.length < 1 || email.length > 100) {
-            console.log('O Email deve ter entre 1 e 100 caracteres');
-            checkData.email = false;
-            } else {
-            //document.getElementById('erro-senha').style.display = 'none';
-            Data.email = email;
-            checkData.email = true;
-            }
-            if (checkData.IdCandidato == true && checkData.email == true) {
-                button.removeAttribute('disabled');
-            } else {
-                button.setAttribute('disabled', 'disabled');
-            }
-        console.log(Data);
-    });
+});
 
 function getDados() {
-    fetch('../php/VotacaoConsulta.php')
+    fetch('http://localhost:5400/php/VotacaoConsulta.php')
     .then((response) => {
-    if(response.status >= 200 && response.status < 300) {
-        return response.json();
-    }
-    throw new Error(response.statusText);
+        if (response.status >= 200 && response.status < 300) {
+            return response.json();
+        }
+        throw new Error(response.statusText);
     })
-    .then((Data) => {
-        // Acessa os numeros dos candidatos da tabela candidatos
-        const IDCANDIDATO = Data.num_candidato;
-
-        // Acessa os emails da tabela estudantes
-        const EMAIL = Data.email;
-
-        votar(EMAIL, IDCANDIDATO);
+    .then((DATA) => {
+        console.log('Resposta do servidor:', DATA);
+        const IDCANDIDATO = DATA.num_candidato;
+        console.log(IDCANDIDATO);
+        votar(IDCANDIDATO);
     })
     .catch((error) => {
-        console.log(error);
+        console.log('Erro na requisição:', error);
     });
-} 
+}
 
-console.log(Data.IdCandidato, Data.email + 'Esses são os valores que estão no Data');
-
-function votar(EMAIL, IDCANDIDATO) {
+function votar(IDCANDIDATO) {
     const email = Data.email;
     const IdCandidato = Data.IdCandidato;
-    let checkE = false;
     let checkI = false;
 
-    let novoVoto = {
-        email: email,
-        IdCandidato: IdCandidato,
-    };
-
     console.log(Data.IdCandidato, Data.email + 'Esses são os valores que estão no Data');
-    console.log(EMAIL, IDCANDIDATO + 'Esses são os valores que estão no banco');
+    console.log(IDCANDIDATO + 'Esses são os valores que estão no banco');
 
-    if(email == EMAIL){
-        console.log('Email correto');
-        linhaEmail.setAttribute('style', 'border-color: green;');
-        checkE = true;
-    } else {
-        console.log('Email incorreto, use o que foi cadastrado');
-        linhaEmail.setAttribute('style', 'border-color: red;');
-        checkE = false;
+    // if(email == EMAIL){
+    //     console.log('Email correto');
+    //     linhaEmail.setAttribute('style', 'border-color: green;');
+    //     checkE = true;
+    // } else {
+    //     console.log('Email incorreto, use o que foi cadastrado');
+    //     linhaEmail.setAttribute('style', 'border-color: red;');
+    //     checkE = false;
+    // }
+
+    // if(IdCandidato == IDCANDIDATO){
+    //     console.log('IdCandidato correto');
+    //     linhaIdCandidato.setAttribute('style', 'border-color: red;');
+    //     checkI = true;
+    // } else {
+    //     console.log('IdCandidato incorreto, use o que está na página de candidatos');
+    //     linhaIdCandidato.setAttribute('style', 'border-color: red;');
+    //     checkI = false;
+    // }
+
+    // console.log(checkE, checkI);
+
+    // Itera sobre os emails
+    // for (const emailDB of Object.values(EMAIL)) {
+    //     if (email === emailDB) {
+    //         console.log('Email correto');
+    //         linhaEmail.setAttribute('style', 'border-color: green;');
+    //         checkE = true;
+    //         break;
+    //     }
+    // }
+
+    for (const numCandidatoDB of Object.values(IDCANDIDATO)) {
+        if (IdCandidato == numCandidatoDB) {
+            console.log('IdCandidato correto');
+            linhaIdCandidato.setAttribute('style', 'border-color: green;');
+            linhaEmail.setAttribute('style', 'border-color: green;');
+            checkI = true;
+            break; 
+        }else{
+            console.log('IdCandidato incorreto, use o que está na página de candidatos');
+            linhaIdCandidato.setAttribute('style', 'border-color: red;');
+            linhaEmail.setAttribute('style', 'border-color: red;');
+            msgSucess.style.display = 'none';
+            msgSucess.innerHTML = '';
+            msgError.style.display = 'block';
+            msgError.innerHTML = '<strong>Número do candidato está errado</strong';
+            checkI = false;
+        }
     }
 
-    if(IdCandidato == IDCANDIDATO){
-        console.log('IdCandidato correto');
-        linhaIdCandidato.setAttribute('style', 'border-color: red;');
-        checkI = true;
-    } else {
-        console.log('IdCandidato incorreto, use o que está na página de candidatos');
-        linhaIdCandidato.setAttribute('style', 'border-color: red;');
-        checkI = false;
-    }
 
-    
 
-    if (checkE == true && checkI == true) {
-        fetch('../php/VotacaoGrava.php', {
+    if (checkI == true) {
+        let novoVoto = {
+            IdCandidato: IdCandidato,
+            Email: email,
+        };
+
+        fetch('http://localhost:5400/php/VotacaoGrava.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -122,17 +175,24 @@ function votar(EMAIL, IDCANDIDATO) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Dados enviados com sucesso:', data);
+            if (data.status === "error") {
+                setTimeout(() => {
+                    alert("O Email inserido já votou! Acompanhe os resultados na página de candidatos");
+                    window.location.href = '../Pages/Results.html';
+                 }, 1000);
+            } else {
+                console.log('Voto registrado com sucesso:', data.message);
+                setTimeout(() => {
+                    alert("Voto incluído com sucesso! Acompanhe os resultados na página de candidatos");
+                    window.location.href = '../Pages/Results.html';
+                 }, 1000);
+            }
         })
         .catch(error => {
             console.error('Erro ao enviar dados:', error);
         });
-        
-        setTimeout(() => {
-           window.location.href = '../Pages/Candidatos.html';
-        }, 3000);
     } else {
         msgError.style.display = 'block';
-        msgError.innerHTML = '<strong>Email ou Número do candidato estão errados</strong';
+        msgError.innerHTML = '<strong>Número do candidato está errados</strong';
     }
 }
